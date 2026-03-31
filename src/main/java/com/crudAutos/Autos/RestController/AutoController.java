@@ -5,7 +5,7 @@ import com.crudAutos.Autos.Entity.Result;
 import com.crudAutos.Autos.Service.AutoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,10 +41,11 @@ public class AutoController {
     }
 
     @GetMapping
-    public ResponseEntity<?> ConsultarAutos() {
+    public ResponseEntity<?> ConsultarAutos(@RequestParam(defaultValue = "0")int page,
+                                            @RequestParam(defaultValue = "6")int size                ) {
         Result serviceResult = new Result();
         try {
-            List<Auto> autos = autoService.ConsultarAutos();
+            Page<Auto> autos = (Page<Auto>) autoService.ConsultarAutos(page, size);
             if (autos.isEmpty()) {
                 serviceResult.status = 204;
                 serviceResult.ErrorMessage = "No existen autos registrados";

@@ -29,7 +29,7 @@ public class Agencia {
     @Column (name="ciudad", nullable = true)
     private String ciudad; 
     
-    @OneToMany(mappedBy = "agencia", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "agencia", cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
     @JsonIgnore 
     private List<Auto> autos = new ArrayList<>();
 

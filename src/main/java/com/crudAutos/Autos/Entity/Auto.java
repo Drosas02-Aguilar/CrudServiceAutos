@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -31,8 +32,13 @@ public class Auto {
     @Column(name="placa",nullable = true)
     private String placa;
     
+    @Lob
+    @Column(name="imagen")
+    private String imagen;
+    
+    
     @ManyToOne
-    @JoinColumn(name="idagencias")
+    @JoinColumn(name="idagencias", nullable = true)
     @JsonIgnoreProperties("autos")
     private Agencia agencia;
 
@@ -98,6 +104,14 @@ public class Auto {
 
     public void setAgencia(Agencia agencia) {
         this.agencia = agencia;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
     
